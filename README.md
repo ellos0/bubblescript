@@ -1,0 +1,3 @@
+### Spicy Lisp
+
+Spicy Lisp is a lisp-adjacent programming language made entirely for fun and to teach myself more about compilers. As this will most likely be the only document to desribe the language, it will be very intricate, and will not leave out any details, except for those which should be documented as a guide for people using the language. These such pieces of documentation can be found in the "doc" folder. This location is subject to change.
