@@ -1,0 +1,1 @@
+(defun main (type int) ((print "Hello, World!")))
