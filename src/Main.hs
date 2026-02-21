@@ -48,7 +48,7 @@ parseNumber :: Parser LispVal
 parseNumber = liftM (Number . read) $ many1 digit
 
 parseList :: Parser LispVal
-parseList = liftM List $ sepBy parseExpr whitespaces
+parseList = liftM List $ sepBy parseExpr spaces
 
 parseExpr :: Parser LispVal
 parseExpr =  parseAtom
