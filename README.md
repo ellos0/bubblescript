@@ -1,3 +1,3 @@
-## Spicy Lisp
+## berryscript
 
-Spicy Lisp is a lisp-adjacent programming language made entirely for fun and to teach myself more about compilers.
+Berryscript is a programming language made for fun and to teach myself more about compilers. It's meant to be sweet and satisfying like a berry. Its syntax consists of S-expressions.

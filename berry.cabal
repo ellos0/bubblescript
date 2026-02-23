@@ -1,5 +1,5 @@
 cabal-version: 3.0
-name: spicy-lisp
+name: berryscript
 version: 0.1.0.0
 -- synopsis:
 -- description:
@@ -12,7 +12,7 @@ build-type:         Simple
 common warnings
     ghc-options: -Wall
 
-executable spicy
+executable berry
     import:           warnings
     main-is:          Main.hs
     -- other-modules:
