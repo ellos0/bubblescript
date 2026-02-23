@@ -47,13 +47,13 @@ parseNumber :: Parser LispVal
 parseNumber = liftM (Number . read) $ many1 digit
 
 parseList :: Parser LispVal
-parseList = liftM List $ sepBy parseExpr whitespaces
+parseList = liftM List $ sepBy parseExpr maybeWhitespace
 
 parseFullList :: Parser LispVal
 parseFullList = do
   _ <- char '('
   _ <- maybeWhitespace
-  x <- try parseList
+  x <- parseList
   _ <- maybeWhitespace
   _ <- char ')'
   return x
