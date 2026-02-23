@@ -1,2 +1,2 @@
-(defun main (type u4)
-((print "Hello, World!")))
+(defun main (type u4) (
+(print "Hello, World!")))
