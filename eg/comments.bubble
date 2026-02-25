@@ -1,0 +1,13 @@
+//comment 1
+//comment 2
+
+/*
+big
+awesome
+multi line
+comment
+*/
+
+(defun main (type u4) (
+       (print "Okay so you shouldn't see anything in this file other than a main function and some includes. If you see comments (not put there by the compiler, that is), something very bad has happened.")
+))

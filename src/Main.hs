@@ -26,6 +26,23 @@ whitespaces = skipMany1 (whitespaceChar)
 maybeWhitespace :: Parser ()
 maybeWhitespace = skipMany (whitespaceChar)
 
+parseSingleComment :: Parser ()
+parseSingleComment = do
+    _ <- string "//"
+    content <- manyTill anyChar newline
+    return ()
+
+parseMultiComment :: Parser ()
+parseMultiComment = do
+  _ <- string "/*"
+  content <- manyTill anyChar (try (string "*/"))
+  return ()
+
+parseSkipComments :: Parser ()
+parseSkipComments = do
+  _ <- skipMany (parseSingleComment <|> parseMultiComment)
+  return ()
+
 parseString :: Parser LispVal
 parseString = do
                 _ <- char '"'
