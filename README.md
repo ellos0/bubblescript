@@ -1,6 +1,6 @@
 <h2>bubblescript</h2>
 
-Bubblescript is a programming language made for fun and to teach myself more about compilers.
+<p>Bubblescript is a programming language made for fun and to teach myself more about compilers.</p>
 
 <h4>Style Guide</h4>
 
