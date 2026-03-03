@@ -5,11 +5,8 @@ import Text.ParserCombinators.Parsec hiding (spaces)
 import Control.Monad
 import System.IO
 
-data LispVal = Atom String
-             | List [LispVal]
-             | Number Integer
-             | String String
-             | Bool Bool
+import Codegen
+import Struct
 
 symbol :: Parser Char
 symbol = oneOf "!#$%&|*+-/:<=>?@^_~"
@@ -29,13 +26,13 @@ maybeWhitespace = skipMany (whitespaceChar)
 parseSingleComment :: Parser ()
 parseSingleComment = do
     _ <- string "//"
-    content <- manyTill anyChar newline
+    _ <- manyTill anyChar newline
     return ()
 
 parseMultiComment :: Parser ()
 parseMultiComment = do
   _ <- string "/*"
-  content <- manyTill anyChar (try (string "*/"))
+  _ <- manyTill anyChar (try (string "*/"))
   return ()
 
 parseSkipComments :: Parser ()
@@ -81,8 +78,6 @@ parseExpr =  parseAtom
          <|> parseNumber
          <|> parseFullList
 
-instance Show LispVal where show = showVal
-
 rep :: String -> String
 rep input = case parse parseExpr "lisp" input of
     Left err -> "No match: " ++ show err
@@ -102,39 +97,6 @@ compileCode code = do
   case parse parseExpr "lisp" code of
     Right val -> (print (showC val))
     Left err -> (hPutStrLn stderr ("Error: " ++ show err))
-    
-unwordsList :: [LispVal] -> String
-unwordsList = unwords . map showVal
-
-showVal :: LispVal -> String
-showVal (String contents) = "\"" ++ contents ++ "\""
-showVal (Atom name) = name
-showVal (Number contents) = show contents
-showVal (Bool True) = ":t"
-showVal (Bool False) = ":f"
-
-showVal (List contents) = "(" ++ unwordsList contents ++ ")"
-
-showC :: LispVal -> String
-showC (Atom x) = x
-showC (Number x) = show x
-showC (String x) = "\"" ++ x ++ "\""
-showC (Bool x) = if x then "1" else "0"
-showC (List []) = ""
-showC (List (op:args)) = case (op) of
-  (Atom "+") -> concat [showC (args !! 0), "+", showC (args !! 1)]
-  (Atom "-") -> concat [showC (args !! 0), "-", showC (args !! 1)]
-  (Atom "*") -> concat [showC (args !! 0), "*", showC (args !! 1)]
-  (Atom "/") -> concat [showC (args !! 0), "/", showC (args !! 1)]
-  (Atom "print") -> concat ["printf(", showC (args !! 0), ");\n"]
-  (Atom "defun") -> concat [showC (args !! 1), " ", showC (args !! 0), "(){\n", showC (args !! 2), "}"]
-  (Atom "type") -> (case (args !! 0) of
-                      (Atom "i4") -> "int"
-                      (Atom "i2") -> "short"
-                      _ -> "int"
-                      )
-  (List _) -> concat (map showC (op:args))
-  _ -> ""
 
 main :: IO ()
 main = do

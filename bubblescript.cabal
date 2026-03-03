@@ -15,7 +15,7 @@ common warnings
 executable bubble
     import:           warnings
     main-is:          Main.hs
-    -- other-modules:
+    other-modules: Codegen, Struct
     -- other-extensions:
     build-depends:    parsec,base ^>=4.18.3.0
     hs-source-dirs:   src
